@@ -1,0 +1,90 @@
+database tables:
+----------------
+users:
+- id (integer, primary key)
+- username (string, unique)
+- firstname (string)
+- lastname (string)
+- email (string, unique)
+- password_hash (string)
+- created_at (timestamp)
+- updated_at (timestamp)
+- is_active (boolean)
+- role (relation to role table) (one to many)
+- addresses (relation to addresses table) (one to many)
+
+products:
+- id (integer, primary key)
+- name (string)
+- description (text)
+- price (decimal)
+- stock_quantity (integer)
+- created_at (timestamp)
+- updated_at (timestamp)
+- images (relation to product_images table)
+
+categories:
+- id (integer, primary key)
+- name (string, unique)
+- description (text)
+- created_at (timestamp)
+- updated_at (timestamp)
+- parent_category_id (self-referential foreign key to categories table)
+- subcategories (self-referential relation to categories table)
+- is_active (boolean)
+- seo_metadata (json)
+
+product_categories:
+- id (integer, primary key)
+- product_id (foreign key to products table)
+- category_id (foreign key to categories table)
+
+orders:
+- id (integer, primary key)
+- user_id (foreign key to users table)
+- order_date (timestamp)
+- status (string)
+- total_amount (decimal)
+- shipping_address_id (foreign key to addresses table)
+- billing_address_id (foreign key to addresses table)
+- created_at (timestamp)
+- updated_at (timestamp)
+- order_items (relation to order_items table)
+- transaction_id (foreign key to payments table)
+- tracking_number (string)
+- delivery_date (timestamp)
+
+what ius:
+- id (integer, primary key)
+- order_id (foreign key to orders table)
+- product_id (foreign key to products table)
+- quantity (integer)
+- unit_price (decimal)
+- total_price (decimal)
+- created_at (timestamp)
+- updated_at (timestamp)
+
+payment_methods:
+- id (integer, primary key)
+- payment_type (varchar(50))
+- payment_processor (varchar(50))
+
+transactions:
+- id (integer, primary key)
+- status (boolean)
+- payment_method (foriegn key to payment methods table)
+- total_amount (decimal)
+
+address:
+- id (integer, primary key)
+- address 1 (string)
+- address 2 (string)
+- city (string, not null)
+- state (string, not null)
+- zip (string, not null)
+- country (string, not null)
+- is_active (boolean default true)
+
+roles:
+- id (integer, primary key)
+- name (string. primary key)
