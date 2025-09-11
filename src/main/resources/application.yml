@@ -20,7 +20,6 @@ spring:
         format_sql: true
 
   jackson:
-    property-naming-strategy: SNAKE_CASE
     default-property-inclusion: NON_NULL
     serialization:
       write-dates-as-timestamps: false
