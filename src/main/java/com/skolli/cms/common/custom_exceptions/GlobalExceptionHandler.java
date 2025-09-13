@@ -62,4 +62,28 @@ public class GlobalExceptionHandler {
     private ResponseEntity<ApiResponse<UserUpdateException>> handleUserUpdateException(UserUpdateException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error("Unable to update user", "USER_UPDATE_ERROR"));
     }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<RoleCreationException>> handleRoleCreationException(RoleCreationException exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(exception.getMessage(), "ROLE_CREATION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<RoleUpdateException>> handleRoleUpdateException(RoleUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "ROLE_UPDATE_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<RoleDeletionException>> handleRoleDeletionException(RoleDeletionException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "ROLE_DELETION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<DuplicateRoleException>> handleDuplicateRoleException(DuplicateRoleException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ApiResponse.error(exception.getMessage(), "DUPLICATE_ROLE"));
+    }
 }
