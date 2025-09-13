@@ -31,8 +31,8 @@ public class ProductsController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Products>> createProduct(@RequestBody CreatedProductDto products) {
-        Products createdProduct = this.productsService.createProducts(products);
+    public ResponseEntity<ApiResponse<ProductItemDto>> createProduct(@RequestBody CreatedProductDto products) {
+        ProductItemDto createdProduct = this.productsService.createProducts(products);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success("Product created", createdProduct));
     }
 
