@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Data
@@ -21,36 +21,35 @@ import java.sql.Date;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @Column(name = "username")
-    String userName;
+    @Column(name = "username", unique = true, nullable = false)
+    private String userName;
 
-    @Column(name = "firstname")
-    String firstName;
+    @Column(name = "firstname", nullable = false)
+    private String firstName;
 
-    @Column(name = "lastname")
-    String lastName;
+    @Column(name = "lastname", nullable = false)
+    private String lastName;
 
-    @Column(name = "email")
-    String email;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
 
     @Column(name = "password_hash")
-    String passwordHash;
+    private String passwordHash;
 
     @Column(name = "created_at")
     @CreationTimestamp
-    Date createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "updated_at")
     @UpdateTimestamp
-    Date updatedAt;
+    private Timestamp updatedAt;
 
-    @Column(name = "is_active")
-    Boolean isActive;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "role_id_fk")
-    Roles role;
-
+    private Roles role;
 }
