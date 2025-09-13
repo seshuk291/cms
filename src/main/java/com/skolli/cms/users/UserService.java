@@ -27,7 +27,7 @@ public class UserService {
             return this.userRepository
                     .findAll()
                     .stream()
-                    .map(UserService::mapUserToDto)
+                    .map(this::mapUserToDto)
                     .collect(Collectors.toList());
         } catch(Exception exception) {
             throw new UserNotFoundException("Users not found " + exception.getMessage());
@@ -85,7 +85,7 @@ public class UserService {
         return mapUserToDto(user);
     }
 
-    private static UsersDto mapUserToDto(Users user) {
+    private UsersDto mapUserToDto(Users user) {
         return UsersDto.builder()
                 .id(user.getId())
                 .userName(user.getUserName())

@@ -24,11 +24,11 @@ public class ProductsService {
     public List<ProductItemDto> findAllProducts() {
         return this.productsRepository.findAll()
                 .stream()
-                .map(ProductsService::mapProductToDto)
+                .map(this::mapProductToDto)
                 .collect(Collectors.toList());
     }
 
-    public Products createProducts(CreatedProductDto productDto) {
+    public ProductItemDto createProducts(CreatedProductDto productDto) {
         List<Categories> categories = categoriesRepository.findByCategoriesIds(productDto.getCategories())
                 .get();
         if(categories.isEmpty()) {
@@ -42,8 +42,8 @@ public class ProductsService {
                     .stockQuantity(productDto.getStockInQuantity())
                     .categories(categories)
                     .build();
-
-            return this.productsRepository.save(products);
+            this.productsRepository.save(products);
+            return mapProductToDto(products);
         } catch(Exception exception) {
             throw new ProductCreationException("Unable to create product." + exception.getMessage());
         }
@@ -79,7 +79,7 @@ public class ProductsService {
         return mapProductToDto(product);
     }
 
-    private static ProductItemDto mapProductToDto(Products product) {
+    private ProductItemDto mapProductToDto(Products product) {
         return ProductItemDto
                 .builder()
                 .id(product.getId())
