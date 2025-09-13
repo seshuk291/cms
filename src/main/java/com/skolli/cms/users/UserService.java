@@ -1,11 +1,10 @@
 package com.skolli.cms.users;
 
-import com.skolli.cms.common.custom_exceptions.RoleNotFoundException;
-import com.skolli.cms.common.custom_exceptions.UserCreationException;
-import com.skolli.cms.common.custom_exceptions.UserNotFoundException;
+import com.skolli.cms.common.custom_exceptions.*;
 import com.skolli.cms.roles.Roles;
 import com.skolli.cms.roles.RolesRepository;
 import com.skolli.cms.users.dto.CreateUserDto;
+import com.skolli.cms.users.dto.UpdateUserDto;
 import com.skolli.cms.users.dto.UsersDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,14 +27,7 @@ public class UserService {
             return this.userRepository
                     .findAll()
                     .stream()
-                    .map(user -> UsersDto.builder()
-                            .id(user.getId())
-                            .userName(user.getUserName())
-                            .firstName(user.getFirstName())
-                            .lastName(user.getLastName())
-                            .email(user.getEmail())
-                            .role(user.getRole())
-                            .build())
+                    .map(UserService::mapUserToDto)
                     .collect(Collectors.toList());
         } catch(Exception exception) {
             throw new UserNotFoundException("Users not found " + exception.getMessage());
@@ -60,5 +52,47 @@ public class UserService {
             throw new UserCreationException("Error creating user " + exception.getMessage());
         }
         return createUserDto;
+    }
+
+    public Boolean updateUser(Long userId, UpdateUserDto updateUserDto) {
+        Users user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found "));
+        user.setUserName(updateUserDto.userName());
+        user.setFirstName(updateUserDto.firstName());
+        user.setLastName(updateUserDto.lastName());
+        user.setEmail(updateUserDto.email());
+
+        try {
+            this.userRepository.save(user);
+            return true;
+        } catch (Exception exception) {
+            throw new UserUpdateException("Unable to update the user " + exception.getMessage());
+        }
+    }
+
+    public Boolean deleteUser(Long userId) {
+        try {
+            this.userRepository.deleteById(userId);
+            return true;
+        } catch(Exception exception) {
+            throw new UserDeletionException("Unable to delete the user " + exception.getMessage());
+        }
+    }
+
+    public UsersDto getUserById(Long userId) {
+        Users user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        return mapUserToDto(user);
+    }
+
+    private static UsersDto mapUserToDto(Users user) {
+        return UsersDto.builder()
+                .id(user.getId())
+                .userName(user.getUserName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build();
     }
 }
