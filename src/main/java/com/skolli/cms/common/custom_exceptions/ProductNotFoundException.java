@@ -1,7 +1,7 @@
 package com.skolli.cms.common.custom_exceptions;
 
 public class ProductNotFoundException extends RuntimeException{
-    ProductNotFoundException(String message) {
+    public ProductNotFoundException(String message) {
         super(message);
     }
 }

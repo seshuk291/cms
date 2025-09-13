@@ -43,7 +43,23 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.error(exception.getMessage(), "CREATE_PRODUCT_ERROR"));
     }
 
+    @ExceptionHandler
     private ResponseEntity<ApiResponse<CategoriesNotFoundException>> handleCategoriesNotFoundException(CategoriesNotFoundException exception) {
-       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(exception.getMessage(),"Category Not Found"));
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(exception.getMessage(),"CATEGORY_NOT_FOUND"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<ProductUpdateException>> handleProductUpdateException(ProductUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error(exception.getMessage(), "PRODUCT_NOT_FOUND"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<UserDeletionException>> handleUserDeletionException(UserDeletionException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error("Unable to delete the user", "USER_DELETION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<UserUpdateException>> handleUserUpdateException(UserUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error("Unable to update user", "USER_UPDATE_ERROR"));
     }
 }
