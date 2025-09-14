@@ -1,5 +1,7 @@
 package com.skolli.cms.users;
 
+import com.skolli.cms.address.Address;
+import com.skolli.cms.orders.Orders;
 import com.skolli.cms.roles.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Data
@@ -52,4 +55,10 @@ public class Users {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "role_id_fk")
     private Roles role;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Orders> orders;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Address> addresses;
 }
