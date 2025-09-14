@@ -59,7 +59,8 @@ CREATE TABLE IF NOT EXISTS address(
 CREATE TABLE IF NOT EXISTS payment_methods(
     id BIGSERIAL PRIMARY KEY,
     payment_type VARCHAR(50),
-    payment_processor VARCHAR(50)
+    payment_processor VARCHAR(50),
+    user_id_fk INT REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS transactions(
