@@ -29,10 +29,16 @@ public class CategoriesService {
     }
 
     public CategoriesDto createCategory(CreateCategoryDto categoryDto) {
+
+        categoriesRepository.findCategoriesByName(categoryDto.name()).ifPresent((category) -> {
+                throw new RuntimeException("Category already exist");
+        });
+
         Categories categories = Categories.builder()
                 .name(categoryDto.name())
                 .description(categoryDto.description())
                 .build();
+        this.categoriesRepository.save(categories);
         return mapToDto(categories);
     }
 

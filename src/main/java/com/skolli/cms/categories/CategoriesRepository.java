@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface CategoriesRepository extends JpaRepository<Categories, Long> {
     @Query("select c from Categories c where c.id in (:categories)")
     Optional<List<Categories>> findByCategoriesIds(List<Long> categories);
+
+    Optional<Categories> findCategoriesByName(String name);
 }
