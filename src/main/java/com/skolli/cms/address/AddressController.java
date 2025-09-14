@@ -2,13 +2,9 @@ package com.skolli.cms.address;
 
 import java.util.List;
 
+import com.skolli.cms.users.dto.UsersDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.skolli.cms.address.dto.AddressDto;
 import com.skolli.cms.utils.ApiResponse;
@@ -32,6 +28,12 @@ public class AddressController {
     public ResponseEntity<ApiResponse<List<AddressDto>>> getAddressesByUserId(@PathVariable Long userId) {
         List<AddressDto> addresses = addressService.getAddressByUserId(userId);
         return ResponseEntity.ok(ApiResponse.success("Success", addresses));
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<AddressDto>> createAddress(@RequestBody() AddressDto addressDto) {
+        AddressDto createdAddress = this.addressService.createAddress(addressDto);
+        return ResponseEntity.ok(ApiResponse.success("Address created successfully", createdAddress));
     }
 
     @PutMapping("/{userId}/{id}")
