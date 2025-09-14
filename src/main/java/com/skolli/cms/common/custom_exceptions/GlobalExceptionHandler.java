@@ -92,4 +92,104 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ApiResponse.error(exception.getMessage(), "ADDRESS_NOT_FOUND"));
     }
+
+    // Payment Method Exceptions
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<PaymentMethodNotFoundException>> handlePaymentMethodNotFoundException(PaymentMethodNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error(exception.getMessage(), "PAYMENT_METHOD_NOT_FOUND"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<PaymentMethodCreationException>> handlePaymentMethodCreationException(PaymentMethodCreationException exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(exception.getMessage(), "PAYMENT_METHOD_CREATION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<PaymentMethodUpdateException>> handlePaymentMethodUpdateException(PaymentMethodUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "PAYMENT_METHOD_UPDATE_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<PaymentMethodDeletionException>> handlePaymentMethodDeletionException(PaymentMethodDeletionException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "PAYMENT_METHOD_DELETION_ERROR"));
+    }
+
+    // Order Exceptions
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderNotFoundException>> handleOrderNotFoundException(OrderNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_NOT_FOUND"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderCreationException>> handleOrderCreationException(OrderCreationException exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_CREATION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderUpdateException>> handleOrderUpdateException(OrderUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_UPDATE_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderDeletionException>> handleOrderDeletionException(OrderDeletionException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_DELETION_ERROR"));
+    }
+
+    // Order Item Exceptions
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderItemNotFoundException>> handleOrderItemNotFoundException(OrderItemNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_ITEM_NOT_FOUND"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderItemCreationException>> handleOrderItemCreationException(OrderItemCreationException exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_ITEM_CREATION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderItemUpdateException>> handleOrderItemUpdateException(OrderItemUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_ITEM_UPDATE_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<OrderItemDeletionException>> handleOrderItemDeletionException(OrderItemDeletionException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "ORDER_ITEM_DELETION_ERROR"));
+    }
+
+    // Transaction Exceptions
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<TransactionNotFoundException>> handleTransactionNotFoundException(TransactionNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error(exception.getMessage(), "TRANSACTION_NOT_FOUND"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<TransactionCreationException>> handleTransactionCreationException(TransactionCreationException exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(exception.getMessage(), "TRANSACTION_CREATION_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<TransactionUpdateException>> handleTransactionUpdateException(TransactionUpdateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "TRANSACTION_UPDATE_ERROR"));
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<TransactionDeletionException>> handleTransactionDeletionException(TransactionDeletionException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(exception.getMessage(), "TRANSACTION_DELETION_ERROR"));
+    }
 }
