@@ -86,4 +86,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ApiResponse.error(exception.getMessage(), "DUPLICATE_ROLE"));
     }
+
+    @ExceptionHandler
+    private ResponseEntity<ApiResponse<AddressNotFoundException>> handleAddressNotFoundException(AddressNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error(exception.getMessage(), "ADDRESS_NOT_FOUND"));
+    }
 }
